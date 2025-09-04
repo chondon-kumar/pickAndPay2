@@ -17,3 +17,5 @@ connectDb = async () => {
         
     }
 }
+
+export { connectDb };
