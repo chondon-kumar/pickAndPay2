@@ -1,6 +1,6 @@
 import {asyncHandler} from "../utils/asyncHandler.js"
-import ApiError from "../utils/apiError.js"
-import ApiResponse from "../utils/apiResponse.js"
+import {ApiError} from "../utils/apiError.js"
+import {ApiResponse} from "../utils/apiResponse.js"
 import { User } from "../models/user.model.js"
 
 
@@ -30,6 +30,7 @@ const registerUser = asyncHandler( async (req, res) => {
 
     const { userName, fullName, password, email, role } = req.body
 
+    console.log(userName, fullName, email, role)
     if(
        [ userName, fullName, password, email, role ].some((items) =>  items?.trim()  ==="")
     ){
@@ -48,7 +49,7 @@ const registerUser = asyncHandler( async (req, res) => {
     }
 
     const user =  await User.create({
-        userName : userName.tolowerCase(),
+        userName ,
         fullName,
         password,
         role, 
