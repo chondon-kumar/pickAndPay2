@@ -122,4 +122,9 @@ const loginUser = asyncHandler( async ( req, res) => {
 })
 
 
-export {registerUser} 
+export {
+    registerUser,
+    loginUser,
+    
+
+} 
