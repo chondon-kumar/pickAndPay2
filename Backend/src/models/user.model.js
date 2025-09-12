@@ -30,12 +30,15 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     }, 
+    avater : {
+        type : String,
+    },
     refreshToken: {
-        type: String,
-        required: true
+        type: String
     },
     role : {
         type: String,
+        required : true,
         enum: ["user", "admin"],
         default: "user"
     }
