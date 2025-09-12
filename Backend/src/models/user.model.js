@@ -54,7 +54,7 @@ userSchema.methods.comparePassword = async function (password) {
 };
 
 userSchema.methods.genareteAccessToken = async function () {
-    jwt.sign(
+    const accessToken =  jwt.sign(
         {   _id : this._id,
             userName : this.userName,
             email : this.email
@@ -62,6 +62,7 @@ userSchema.methods.genareteAccessToken = async function () {
            expiresIn : process.env.ACCESS_TOKEN_EXPIRY
         }
     )
+    return accessToken
 }
 userSchema.methods.genareteRefreshToken = async function () {
    const refreshToken =  jwt.sign(
