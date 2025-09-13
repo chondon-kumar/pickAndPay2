@@ -106,8 +106,8 @@ const loginUser = asyncHandler( async ( req, res) => {
     }
     const options = {
         httpOnly : true,
-        sequre : true,
-        semsite : strict,
+        secure : true,
+        semsite : "Strict",
         maxAge : 1000*60*60*24*7 // expires for 7 days
     }
 
@@ -122,6 +122,9 @@ const loginUser = asyncHandler( async ( req, res) => {
 
 })
 
+const logoutUser = asyncHandler( async (req, res ) => {
+    
+})
 
 export {
     registerUser,
