@@ -2,6 +2,7 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 import {ApiError} from "../utils/apiError.js"
 import {ApiResponse} from "../utils/apiResponse.js"
 import { User } from "../models/user.model.js"
+import jwt from "jsonwebtoken"
 
 
 // const genareteTokens = async(userId) => {
@@ -106,8 +107,8 @@ const loginUser = asyncHandler( async ( req, res) => {
     }
     const options = {
         httpOnly : true,
-        secure : true,
-        semsite : "Strict",
+        // secure : true,
+        sameSite : "Strict",
         maxAge : 1000*60*60*24*7 // expires for 7 days
     }
 
@@ -136,8 +137,8 @@ const logoutUser = asyncHandler( async (req, res ) => {
     )
     const options = {
         httpOnly : true,
-        secure : true,
-        semsite : "Strict",
+        // secure : true, 
+        sameSite : "Strict",
         maxAge : 1000*60*60*24*7 // expires for 7 days
     }
     return res
@@ -147,9 +148,66 @@ const logoutUser = asyncHandler( async (req, res ) => {
     .json( new ApiResponse(201, " User log out successfully", {}))
 })
 
+const refreshAccessToken = asyncHandler( async ( req, res ) => {
+  // get refresh token from cookie
+  // verify the token
+  // find the user
+  // genarete new access token and refresh token
+  // update refresh token in DB
+  // send cookie
+  // return response    
+
+  const token = req.cookie?.refereshToken || req.header("Authorizetion").replece("Bearer ", "")
+
+  if ( !token ) {
+    throw new ApiError(404, "this refresh token date expired")
+  }
+  const decodeJwt = jwt.verify( token, process.env.REFRESH_TOKEN_SECRET) // verify token
+
+  if ( !decodeJwt ) {
+    throw new ApiError( 401, " Unauthorized request ")
+  }
+
+  const user = await User.findById( decodeJwt._id )
+
+    if ( !user || user.refreshToken !== token ) {
+      throw new ApiError(401, "Unauthorized request")
+    }
+    // genarete new tokens
+  const newAccessToken = user.genareteAccessToken()
+  const newRefreshToken = user.genareteRefreshToken()
+
+  // update referesh token in DB
+  const newUser = await User.findByIdAndUpdate(
+        user._id,
+        {
+            $set : {
+                refreshToken : newRefreshToken
+            }
+        },{
+            new : true
+        }
+  ).select(" -password -refreshToken") // select user without password and refreshToken
+  const options = {
+        httpOnly : true,
+        // secure : true, 
+        sameSite : "Strict",
+        maxAge : 1000*60*60*24*7 // expires for 7 days
+    }
+// send cookie and response
+  return res
+  .status(201) 
+  .cookie("accessToken", newAccessToken, options) // send cookie
+  .cookie("refreshToken", newRefreshToken, options) // send cookie
+  .json( new ApiResponse(201, "Genarete new tokens successfully", { user : newUser }))
+})
+ 
+
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    refreshAccessToken
 
 } 
