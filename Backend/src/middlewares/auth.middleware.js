@@ -27,8 +27,9 @@ import { ApiError } from "../utils/apiError.js"
         if(!user){
             throw new ApiError(404, " invalid access tokens ") 
         }
-        
-        req.user = user
+
+        req.user = user // assign user to req.user
+
         next()
     } catch (error) {
         throw new ApiError(404, " invalid access token ")
