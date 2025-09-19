@@ -9,7 +9,7 @@ import { registerUser,
     updateAvatar,
     deleteAvatar } from "../controllers/user.controllers.js";
 import { verifyJwt } from "../middlewares/auth.middleware.js"
-import { upload } from "../middlewares/multer.middleware.js";
+import  upload  from "../middlewares/multer.js";
 
 const userRouter = Router() 
 

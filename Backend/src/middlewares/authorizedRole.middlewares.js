@@ -1,4 +1,4 @@
-import ApiError from "../utils/ApiError.js";
+import { ApiError } from "../utils/apiError.js";
 
 function authRole (...role){
     return (req, res, next) => {
