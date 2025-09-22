@@ -3,7 +3,7 @@ import {ApiError} from "../utils/apiError.js"
 import {ApiResponse} from "../utils/apiResponse.js"
 import { User } from "../models/user.model.js"
 import jwt from "jsonwebtoken"
-import fileUploader from "../utils/fileUploader.js"
+import { fileUploader } from "../utils/fileUploader.js"
 
 
 // const genareteTokens = async(userId) => {

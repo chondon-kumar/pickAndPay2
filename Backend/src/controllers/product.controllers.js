@@ -1,5 +1,5 @@
-import Product from "../models/products.model.js";
-import asyncHandler from "express-async-handler";
+// import Product from "../models/products.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { fileUploader } from "../utils/fileUploader.js";

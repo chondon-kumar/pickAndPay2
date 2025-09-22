@@ -1,7 +1,7 @@
-import asyncHandler from "../utils/asyncHandler.js";
-import { Address } from "../models/address.model";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { Address } from "../models/address.model.js";
 import  { ApiError } from "../utils/apiError.js";
-import Apiresponse from "../utils/apiResponse.js";
+import { ApiResponse } from "../utils/apiResponse.js";
 
 
 const createAddress = asyncHandler ( async (req, res) => {
@@ -61,7 +61,7 @@ const editAddress = asyncHandler ( async (req, res) => {
     }
     return res
     .status(200)
-    .json(new Apiresponse(200, "Address updated successfully", address));
+    .json(new ApiResponse(200, "Address updated successfully", address));
 });
 
 const deleteAddress = asyncHandler ( async (req, res) => {
@@ -81,7 +81,7 @@ const deleteAddress = asyncHandler ( async (req, res) => {
     }
     return res
     .status(200)
-    .json(new Apiresponse(200, "Address deleted successfully", null));
+    .json(new ApiResponse(200, "Address deleted successfully", null));
 
 });
 

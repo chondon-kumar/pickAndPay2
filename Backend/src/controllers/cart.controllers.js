@@ -1,7 +1,7 @@
-import { ApiError } from "../utils/apiError";
-import { ApiResponse } from "../utils/apiResponse";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import Cart from "../models/cart.model.js"
+import { Cart } from "../models/cart.model.js"
 import { Product } from "../models/product.model.js";
 
 const addCart = asyncHandler( async ( req, res ) => {
@@ -113,6 +113,5 @@ export{
     addCart,
     deleteCart, 
     getCart,
-
 
 }

@@ -48,3 +48,6 @@ productRouter.route( "/get-single-product" )
                 authRole( "admin" ),
                 getSingleProduct
               )
+
+
+export { productRouter } ;
